@@ -31,11 +31,11 @@ class Brick {
         case 1:
           return color(0,0,255);
          case 2:
-          return color(255,255,0);
+          return color(255,190,0);
         case 3:
-          return  color(255,0,180);
+          return  color(255,0,190);
         default:
-          return  color(0,255,0);       
+          return  color(0,200,0);       
     }
   }
   
@@ -46,7 +46,9 @@ class Brick {
        if(next != null && next.colorType == colorType){
          column.set(row, null);
          column.set(row + 1, null);
-         pairTo.slideDown(grid);
+         if(pairTo != null){
+           pairTo.slideDown(grid);
+         }
        }
     }
   }
@@ -75,8 +77,9 @@ class Brick {
     ArrayList<Brick> column = grid.get(col);
     while(row < column.size() - 1 &&
           column.get(row + 1) == null){
-    
+       column.set(row, null);
        row ++;
+       column.set(row, this);
     }
   }
   
