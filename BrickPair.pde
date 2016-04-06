@@ -12,6 +12,9 @@ class BrickPair {
     int c = (int) random(9);
     b1 = new Brick(c);
     b2 = new Brick(c + 1);
+    
+    b1.pairTo = b2;
+    b2.pairTo = b1;
   }
   
   int rightMostCol(){
@@ -37,7 +40,10 @@ class BrickPair {
   
   void drop(ArrayList<ArrayList> grid){
     grid.get(b1.col).set(b1.row, b1);   
-    grid.get(b2.col).add(b2.row, b2);
+    grid.get(b2.col).set(b2.row, b2);
+    
+    b1.crush( grid );
+    b2.crush( grid );
   }
   
   boolean isDroppedOn(ArrayList<ArrayList> grid){

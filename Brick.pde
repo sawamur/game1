@@ -8,20 +8,23 @@ class Brick {
   private int red = 0;
   private int green = 0;
   private int blue = 0;
-  public  color c1;
+  public int colorType;
+  public  color c1; 
+  public Brick pairTo;
   
   Brick(){
     col = (int) random(10);
+    colorType = (int) random(5);
     c1 = getColor(); 
   }
   
   Brick(int c){
     col = c;
+    colorType = (int) random(5);
     c1 = getColor();
   }
 
   color getColor(){
-      int colorType = (int) random(5);
     switch(colorType){
       case 0:
          return color(255,0,0);
@@ -36,11 +39,22 @@ class Brick {
     }
   }
   
+  void crush(ArrayList<ArrayList> grid){
+    ArrayList<Brick> column = grid.get(col);
+    if(row < column.size() - 1){
+       Brick next = column.get(row + 1);
+       if(next != null && next.colorType == colorType){
+         column.set(row, null);
+         column.set(row + 1, null);
+         pairTo.slideDown(grid);
+       }
+    }
+  }
+    
   void update(){
     x = 30 * col;
     y += 3;
     row = (int) y / 30;
-    print(row);
   }
   
   void show(){
@@ -48,6 +62,22 @@ class Brick {
       fill(c1);
       rect(x,y,w,h);
   
+  }
+  
+  void showOnGrid(){
+    x = col * 30;
+    y = row * 30;
+    show();
+  }
+  
+  void slideDown(ArrayList<ArrayList> grid){
+    pairTo = null;
+    ArrayList<Brick> column = grid.get(col);
+    while(row < column.size() - 1 &&
+          column.get(row + 1) == null){
+    
+       row ++;
+    }
   }
   
   boolean isDropedOn( int num ){

@@ -48,7 +48,7 @@ void showAll(){
     for(int j=0; j < 20; j ++){
       Brick b = (Brick) grid.get(i).get(j);
       if(b != null){
-         b.show(); 
+         b.showOnGrid(); 
       }
     }
   }
