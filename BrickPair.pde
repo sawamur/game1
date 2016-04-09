@@ -38,21 +38,18 @@ class BrickPair {
     b2.col += delta;
   }
   
-  void drop(ArrayList<ArrayList> grid){
-    grid.get(b1.col).set(b1.row, b1);   
-    grid.get(b2.col).set(b2.row, b2);
-    
-    b1.crush( grid );
-    b2.crush( grid );
+  void drop(Grid grid){
+    grid.setAt(b1.col, b1.row, b1);
+    grid.setAt(b2.col, b2.row, b2);
   }
   
-  boolean isDroppedOn(ArrayList<ArrayList> grid){
-    int max = grid.get(0).size();
+  boolean isDroppedOn(Grid grid){
+    int max = grid.maxVerticalSize();
     if(b1.row == max -1  || b2.row == max -1){
       return true; 
-    }else if( grid.get(b1.col).get(b1.row + 1) != null){
+    }else if( grid.getAt(b1.col, b1.row + 1) != null){
       return true; 
-    }else if( grid.get(b2.col).get(b2.row + 1) != null){
+    }else if( grid.getAt(b2.col, b2.row + 1) != null){
       return true;
     }
     return false;
