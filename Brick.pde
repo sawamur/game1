@@ -41,11 +41,19 @@ class Brick {
   
   void crush(ArrayList<ArrayList> grid){
     ArrayList<Brick> column = grid.get(col);
-    if(row < column.size() - 1){
-       Brick next = column.get(row + 1);
-       if(next != null && next.colorType == colorType){
+    if(row < column.size() - 2){
+       Brick next1 = column.get(row + 1);
+       Brick next2 = column.get(row + 2);
+
+       if(next1 != null && 
+          next1.colorType == colorType &&
+          next2 != null && 
+          next2.colorType == colorType
+         ){
          column.set(row, null);
          column.set(row + 1, null);
+         column.set(row + 2, null);
+
          if(pairTo != null){
            pairTo.slideDown(grid);
          }
