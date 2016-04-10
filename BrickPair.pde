@@ -34,17 +34,30 @@ class BrickPair {
     move(-1);
   }
   
-  void turn(){
+  void turn(Grid grid){
+    print(direction);
     direction ++;
-    direction = direction / 4;
+    direction = direction % 4;
     
     if(direction == 0){
-      
+      if(b1.col < 9){
+        b2.col = b1.col + 1;
+        b2.y = b1.y;
+      }
     } else if (direction == 1){
       b2.col = b1.col;
-      b2.y = 
+      b2.y = b1.y - 30;
+    } else if (direction == 2){
+      if(b1.col > 0){
+        b2.col = b1.col - 1;
+        b2.y = b1.y;
+      }
+    } else if (direction == 3){
+      if(b1.row > 0 && grid.getAt(b1.col, b1.row + 1) == null){
+        b2.col = b1.col;
+        b2.y = b1.y + 30;
+      }
     }
-    
   }
   
   void move(int delta){

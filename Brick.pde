@@ -25,13 +25,13 @@ class Brick {
   color getColor(){
     switch(colorType){
       case 0:
-         return color(255,0,0);
+         return color(240,0,0);
         case 1:
-          return color(0,0,255);
+          return color(0,0,240);
          case 2:
-          return color(255,190,0);
+          return color(255,255,0);
         case 3:
-          return  color(255,30,220);
+          return  color(255, 00, 204);
         default:
           return  color(0,200,0);       
     }
