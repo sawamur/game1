@@ -1,7 +1,6 @@
 
 BrickPair currentPair;
 Grid grid;
-int numBrick = 0;
 
 void setup(){
   size(300, 600);
