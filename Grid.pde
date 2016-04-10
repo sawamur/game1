@@ -35,18 +35,18 @@ class Grid {
     Brick last = null;
     Brick current = null;
     for(int i = 0; i < 10; i++){
-      for(int j = 0; j < 20; j ++){
+      last = null;
+      for(int j = 19; j >= 0; j --){
         current = getAt(i, j);        
         if(last != null && current != null && last.colorType == current.colorType){
           n ++;
         } else {
           n = 0;
         }
-        print( i + ":" + j + ":" + n + "\n");
         if(n == 2){
           getAt(i, j).toBeRemoved = true;  
-          getAt(i, j - 1).toBeRemoved = true;
-          getAt(i, j - 2).toBeRemoved = true;
+          getAt(i, j + 1).toBeRemoved = true;
+          getAt(i, j + 2).toBeRemoved = true;
           hit = true;
         }
         last = getAt(i,j);
@@ -58,6 +58,7 @@ class Grid {
   
   void slide(){
     boolean toSlide = false;
+    ArrayList<Brick> separated = new ArrayList<Brick>();
      for(int i = 0; i < 10; i++){
        toSlide = false;
        for(int j = 19; j >= 0; j --){
@@ -66,7 +67,7 @@ class Grid {
          if(b.toBeRemoved){
            setAt(i,j,null);
            if(b.pairTo != null){
-             b.pairTo.slideDownAll(this);
+             separated.add(b.pairTo);
            }
            b = null;
            toSlide = true;
@@ -75,6 +76,17 @@ class Grid {
          }
       }
      }
+     for(int i=0; i < separated.size(); i++){
+       Brick b = separated.get(i);
+       if(b != null){
+          if(!b.toBeRemoved){
+            b.slideDownAll(grid);   
+          } else {
+            b = null;
+          }
+       }
+     }
+
   }
 }
 
