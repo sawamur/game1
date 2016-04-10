@@ -88,6 +88,17 @@ class Grid {
      }
 
   }
+  
+  void showAll(){  
+   for(int i =0; i < 10; i++){
+    for(int j=0; j < 20; j ++){
+      Brick b = getAt(i,j);
+      if(b != null){
+         b.showOnGrid(); 
+      }
+    }
+   }
+  }
 }
 
   

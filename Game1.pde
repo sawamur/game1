@@ -7,7 +7,6 @@ void setup(){
   size(300, 600);
   currentPair = new BrickPair();
   grid = new Grid();
- 
 }
 
 void draw(){
@@ -25,7 +24,8 @@ void draw(){
     
     currentPair = new BrickPair();
   }
-  showAll();
+  currentPair.show();
+  grid.showAll();
 }
 
 void keyPressed() {
@@ -38,18 +38,6 @@ void keyPressed() {
         bp.moveLeft();
     } else if (keyCode == UP) {
         bp.turn(grid);
-    }
-  }
-}
-
-void showAll(){
-  currentPair.show();
-  for(int i =0; i < 10; i++){
-    for(int j=0; j < 20; j ++){
-      Brick b = grid.getAt(i,j);
-      if(b != null){
-         b.showOnGrid(); 
-      }
     }
   }
 }
