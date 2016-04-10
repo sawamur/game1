@@ -2,6 +2,7 @@
 class BrickPair {
   public Brick b1;
   public Brick b2;
+  public int direction = 0;
   
   BrickPair(Brick _b1, Brick _b2){
     b1 = _b1;
@@ -31,6 +32,19 @@ class BrickPair {
   
   void moveLeft(){
     move(-1);
+  }
+  
+  void turn(){
+    direction ++;
+    direction = direction / 4;
+    
+    if(direction == 0){
+      
+    } else if (direction == 1){
+      b2.col = b1.col;
+      b2.y = 
+    }
+    
   }
   
   void move(int delta){

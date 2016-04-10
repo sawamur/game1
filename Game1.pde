@@ -36,6 +36,8 @@ void keyPressed() {
         bp.moveRight();
     } else if (keyCode == LEFT && bp.leftMostCol() > 0) {
         bp.moveLeft();
+    } else if (keyCode == UP) {
+        bp.turn();
     }
   }
 }

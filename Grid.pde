@@ -44,9 +44,9 @@ class Grid {
         }
         print( i + ":" + j + ":" + n + "\n");
         if(n == 2){
-          setAt(i, j, null);
-          setAt(i, j - 1 , null);
-          setAt(i, j - 2 , null);
+          getAt(i, j).toBeRemoved = true;  
+          getAt(i, j - 1).toBeRemoved = true;
+          getAt(i, j - 2).toBeRemoved = true;
           hit = true;
         }
         last = getAt(i,j);
@@ -57,6 +57,24 @@ class Grid {
   }
   
   void slide(){
+    boolean toSlide = false;
+     for(int i = 0; i < 10; i++){
+       toSlide = false;
+       for(int j = 19; j >= 0; j --){
+        Brick b = getAt(i,j);
+        if(b != null)
+         if(b.toBeRemoved){
+           setAt(i,j,null);
+           if(b.pairTo != null){
+             b.pairTo.slideDownAll(this);
+           }
+           b = null;
+           toSlide = true;
+         }else if(toSlide){
+           b.slideDown(this);
+         }
+      }
+     }
   }
 }
 
