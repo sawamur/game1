@@ -4,11 +4,6 @@ class BrickPair {
   public Brick b2;
   public int direction = 0;
   
-  BrickPair(Brick _b1, Brick _b2){
-    b1 = _b1;
-    b2 = _b2;
-  }
- 
   BrickPair(){
     int c = (int) random(9);
     b1 = new Brick(c);
@@ -68,6 +63,16 @@ class BrickPair {
   void drop(Grid grid){
     grid.setAt(b1.col, b1.row, b1);
     grid.setAt(b2.col, b2.row, b2);
+  }
+  
+  void speedUp(){
+    b1.accelaration = 2;
+    b2.accelaration = 2;
+  }  
+ 
+  void setSpeed(float speed){
+    b1.baseSpeed = speed;
+    b2.baseSpeed = speed;
   }
   
   boolean isDroppedOn(Grid grid){

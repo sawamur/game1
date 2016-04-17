@@ -9,6 +9,8 @@ class Brick {
   public  color c1; 
   public Brick pairTo;
   public boolean toBeRemoved = false;
+  public float baseSpeed = 1.0; 
+  public float accelaration = 1;
   
   Brick(){
     col = (int) random(10);
@@ -39,7 +41,7 @@ class Brick {
       
   void update(){
     x = 30 * col;
-    y += 1.5;
+    y += speed();
     row = (int) y / 30;
   }
   
@@ -54,6 +56,11 @@ class Brick {
     y = row * 30;
     show();
   }
+  
+  float speed(){
+    return baseSpeed * accelaration;
+  }
+  
   
   void slideDown(Grid grid){
     pairTo = null;
