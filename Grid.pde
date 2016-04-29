@@ -52,6 +52,25 @@ class Grid {
         last = getAt(i,j);
       }
     }
+    
+    for(int j = 19; j >= 0; j --){
+      last = null;
+      for(int i = 0; i < 10; i++){
+       current = getAt(i, j);        
+        if(last != null && current != null && last.colorType == current.colorType){
+          n ++;
+        } else {
+          n = 0;
+        }
+        if(n == 2){
+          getAt(i, j).toBeRemoved = true;  
+          getAt(i - 1, j).toBeRemoved = true;
+          getAt(i - 2 , j).toBeRemoved = true;
+          hit = true;
+        }
+        last = getAt(i,j);
+      }
+    }
         
     return hit;
   }
