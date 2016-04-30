@@ -1,6 +1,8 @@
 
 class Grid {
   ArrayList<ArrayList> horizontal;
+  int horizontalSize = 10;
+  int verticalSize = 20;
   
   Grid(){
     horizontal = new ArrayList<ArrayList>();
@@ -19,6 +21,15 @@ class Grid {
   
   void setAt(int colNum, int rowNum, Brick brickOrNull){
     horizontal.get(colNum).set(rowNum, brickOrNull);  
+  }
+  
+  boolean isFull(){
+    for(int i=0; i < horizontalSize; i ++){
+      if(getAt(i,0) != null){
+        return true;
+      }
+    }    
+    return false;
   }
   
   ArrayList<Brick> getVertical(int colNum){
@@ -43,10 +54,13 @@ class Grid {
         } else {
           n = 0;
         }
-        if(n == 2){
+        if(n == 2 || n == 3){
           getAt(i, j).toBeRemoved = true;  
           getAt(i, j + 1).toBeRemoved = true;
           getAt(i, j + 2).toBeRemoved = true;
+          if(n == 3){
+            getAt(i, j + 3).toBeRemoved = true;
+          }
           hit = true;
         }
         last = getAt(i,j);
@@ -62,10 +76,13 @@ class Grid {
         } else {
           n = 0;
         }
-        if(n == 2){
+        if(n == 2 || n == 3){
           getAt(i, j).toBeRemoved = true;  
           getAt(i - 1, j).toBeRemoved = true;
           getAt(i - 2 , j).toBeRemoved = true;
+          if(n == 3){
+             getAt(i - 3 , j).toBeRemoved = true;
+          }
           hit = true;
         }
         last = getAt(i,j);
@@ -75,7 +92,19 @@ class Grid {
     return hit;
   }
   
-  void slide(){
+  int numOfToBeRemoved(){
+    int num = 0;
+    for(int i = (horizontalSize -1); i >= 0; i--){
+      for(int j = (verticalSize -1); j >= 0; j--){
+        if(getAt(i,j).toBeRemoved){
+          num ++;
+        }
+      }
+    }
+    return num;
+  }
+  
+  int slide(){
     boolean toSlide = false;
     ArrayList<Brick> separated = new ArrayList<Brick>();
      for(int i = 0; i < 10; i++){

@@ -12,7 +12,11 @@ class Score {
     text( score, 5, 20);
   }  
   
-  void up(){
-    score =+ 10;
+  void up(int numOfRemove){
+    if(numOfRemove == 3){          
+      score = score + 10;
+    }else {
+      score = score + 20;
+    }
   }
 }

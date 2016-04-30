@@ -10,7 +10,8 @@ class Brick {
   public Brick pairTo;
   public boolean toBeRemoved = false;
   public float baseSpeed = 1.0; 
-  public float accelaration = 1;
+  private boolean speedUped = false;
+  private float highSpeed = 6.0;
   
   Brick(){
     col = (int) random(10);
@@ -57,8 +58,19 @@ class Brick {
     show();
   }
   
-  float speed(){
-    return baseSpeed * accelaration;
+  void speedUp(){
+    speedUped = true; 
+  }
+  
+  void speedDown(){
+    speedUped = false; 
+  }
+  
+  float speed(){   
+    if(speedUped){
+      return highSpeed;
+    }
+    return baseSpeed;
   }
   
   

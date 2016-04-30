@@ -66,9 +66,14 @@ class BrickPair {
   }
   
   void speedUp(){
-    b1.accelaration = 2;
-    b2.accelaration = 2;
+    b1.speedUp();
+    b2.speedUp();
   }  
+  
+  void speedDown(){
+    b1.speedDown();
+    b2.speedDown();
+  }
  
   void setSpeed(float speed){
     b1.baseSpeed = speed;
