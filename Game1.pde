@@ -14,7 +14,6 @@ void setup() {
 }
 
 void draw() {
-
   background(255);
   currentPair.b1.update();
   currentPair.b2.update();
@@ -22,7 +21,7 @@ void draw() {
   if ( currentPair.isDroppedOn(  grid )) {    
     currentPair.drop( grid );
 
-    while (grid.markAndSeep()) {
+    while (grid.detectToBeRemoved()) {
       int numOfRemoved = grid.numOfToBeRemoved();
       score.up(numOfRemoved);
       grid.slide();    
@@ -71,5 +70,4 @@ void gameOver () {
   fill(0, 0, 0);
   text("Game Over", 40, 140);  
   noLoop();
- 
 }

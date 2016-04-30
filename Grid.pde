@@ -6,9 +6,9 @@ class Grid {
   
   Grid(){
     horizontal = new ArrayList<ArrayList>();
-    for(int i =0; i < 10; i++){    
+    for(int i =0; i < horizontalSize; i++){    
       ArrayList<Brick> vertical = new ArrayList<Brick>();
-      for(int j =0; j < 20; j++){
+      for(int j =0; j < verticalSize; j++){
        vertical.add(null); 
       }
       horizontal.add( vertical );
@@ -40,14 +40,17 @@ class Grid {
     return horizontal.get(0).size();
   }
   
-  boolean markAndSeep(){
+  /**
+  * mark "to be removed" if 3 or 4 of adjacent bricks are same color
+  */
+  boolean detectToBeRemoved(){
     int n = 0;
     boolean hit = false;
     Brick last = null;
     Brick current = null;
-    for(int i = 0; i < 10; i++){
+    for(int i = 0; i < horizontalSize; i++){
       last = null;
-      for(int j = 19; j >= 0; j --){
+      for(int j = (verticalSize -1); j >= 0; j --){
         current = getAt(i, j);        
         if(last != null && current != null && last.colorType == current.colorType){
           n ++;
@@ -67,9 +70,9 @@ class Grid {
       }
     }
     
-    for(int j = 19; j >= 0; j --){
+    for(int j = (verticalSize -1); j >= 0; j --){
       last = null;
-      for(int i = 0; i < 10; i++){
+      for(int i = 0; i < horizontalSize; i++){
        current = getAt(i, j);        
         if(last != null && current != null && last.colorType == current.colorType){
           n ++;
@@ -92,11 +95,15 @@ class Grid {
     return hit;
   }
   
+  /**
+  * returns how many bricks are to be removed in order to calc score.
+  */
   int numOfToBeRemoved(){
     int num = 0;
     for(int i = (horizontalSize -1); i >= 0; i--){
       for(int j = (verticalSize -1); j >= 0; j--){
-        if(getAt(i,j).toBeRemoved){
+        Brick b = getAt(i,j);
+        if(b != null && b.toBeRemoved){
           num ++;
         }
       }
@@ -104,12 +111,15 @@ class Grid {
     return num;
   }
   
-  int slide(){
+  /**
+  * remove bricks and slide the rest.
+  */
+  void slide(){
     boolean toSlide = false;
     ArrayList<Brick> separated = new ArrayList<Brick>();
-     for(int i = 0; i < 10; i++){
+     for(int i = 0; i < horizontalSize; i++){
        toSlide = false;
-       for(int j = 19; j >= 0; j --){
+       for(int j = (verticalSize -1); j >= 0; j --){
         Brick b = getAt(i,j);
         if(b != null)
          if(b.toBeRemoved){
@@ -138,8 +148,8 @@ class Grid {
   }
   
   void showAll(){  
-   for(int i =0; i < 10; i++){
-    for(int j=0; j < 20; j ++){
+   for(int i =0; i < horizontalSize; i++){
+    for(int j=0; j < verticalSize; j ++){
       Brick b = getAt(i,j);
       if(b != null){
          b.showOnGrid(); 
